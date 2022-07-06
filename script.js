@@ -3,6 +3,8 @@ import pokemonArray from "./data/pokemon.js";
 const cardContainer = document.querySelector(".card-container");
 const typesFilter = document.querySelector("#type");
 const nameSearch = document.querySelector("#name-search");
+const rangeDisplay = document.querySelector("input[type='range']");
+let filterArray = [];
 
 const getPokemon = (array) => {
   array.forEach((pokemon) => {
@@ -40,10 +42,19 @@ const filterPokes = (filterType, key, resetValue) => {
   if (lowerCaseFilterType === resetValue) {
     getPokemon(pokemonArray);
   }
-  let filterArray = pokemonArray.filter((pokemon) => {
+  filterArray = pokemonArray.filter((pokemon) => {
     return pokemon[key].includes(lowerCaseFilterType);
   });
 
+  getPokemon(filterArray);
+};
+
+const displayPokes = () => {
+  cardContainer.innerHTML = "";
+
+  filterArray = pokemonArray.filter((pokemon) => {
+    return pokemon.id <= rangeDisplay.value;
+  });
   getPokemon(filterArray);
 };
 
@@ -56,3 +67,4 @@ typesFilter.addEventListener("change", () =>
 nameSearch.addEventListener("change", () =>
   filterPokes(nameSearch, `name`, "")
 );
+rangeDisplay.addEventListener("change", displayPokes);

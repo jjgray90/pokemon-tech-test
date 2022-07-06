@@ -16,13 +16,25 @@
 <body>
   <h1>PokéDom- gotta code 'em all!</h1>
 
-  <label for="filter">Filter by Type</label>
-  <select name="pokemon" id="type">
-    <option value="all">All</option>
-  </select>
+  <section class="filter-container">
+    <div>
+      <label for="filter">Filter by Type</label>
+      <select name="pokemon" id="type">
+        <option value="all">All</option>
+      </select>
+    </div>
 
-  <label for="name-search">Search by Name</label>
-  <input type="text" id="name-search">
+    <div>
+      <label for="name-search">Search by Name</label>
+      <input type="text" id="name-search">
+    </div>
+
+    <div>
+      <label for="range">Display</label>
+      <input type="range" min="1" max="251" value="251" class="range-display">
+    </div>
+  </section>
+
   <main class="card-container"></main>
 
   <script src="./script.js" type="module"></script>
