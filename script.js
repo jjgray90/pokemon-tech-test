@@ -4,8 +4,6 @@ const cardContainer = document.querySelector(".card-container");
 const typeFilter = document.querySelector("#type");
 
 const getPokemon = (array) => {
-  cardContainer.innerHTML = "";
-
   array.forEach((pokemon) => {
     cardContainer.innerHTML += `
         <div class="card">
@@ -38,7 +36,13 @@ const getTypes = () => {
   console.log(pokeTypes);
 };
 
-const filterTypes = () => {
+const filterPokes = () => {
+  cardContainer.innerHTML = "";
+
+  console.log(typeFilter.value);
+  if (typeFilter.value === "all") {
+    getPokemon(pokemonArray);
+  }
   let filterArray = pokemonArray.filter((pokemon) => {
     return pokemon.types.includes(typeFilter.value);
   });
@@ -49,4 +53,4 @@ const filterTypes = () => {
 getTypes();
 getPokemon(pokemonArray);
 
-typeFilter.addEventListener("change", filterTypes);
+typeFilter.addEventListener("change", filterPokes);
