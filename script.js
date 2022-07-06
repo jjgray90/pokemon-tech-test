@@ -6,18 +6,16 @@ const nameSearch = document.querySelector("#name-search");
 
 const getPokemon = (array) => {
   array.forEach((pokemon) => {
+    let pokemonName = pokemon.name[0].toUpperCase() + pokemon.name.substring(1);
+
     cardContainer.innerHTML += `
         <div class="card">
             <img src="${pokemon.sprite}">
             <div class="card__content">
-                <h2 class="card__heading">${
-                  pokemon.name[0].toUpperCase() + pokemon.name.substring(1)
-                }</h2>
-                <p class="card__text">${
-                  pokemon.name[0].toUpperCase() + pokemon.name.substring(1)
-                } (#${pokemon.id}) is a ${pokemon.types.join(
-      " & "
-    )} type pokemon.</p>
+                <h2 class="card__heading">${pokemonName}</h2>
+                <p class="card__text">${pokemonName} (#${
+      pokemon.id
+    }) is a ${pokemon.types.join(" & ")} type pokemon.</p>
             </div>
         </div>
         `;
@@ -35,10 +33,10 @@ const getTypes = () => {
   });
 };
 
-const filterPokes = (filterType, key) => {
+const filterPokes = (filterType, key, resetValue) => {
   cardContainer.innerHTML = "";
 
-  if (filterType.value === "") {
+  if (filterType.value === resetValue) {
     getPokemon(pokemonArray);
   }
   let filterArray = pokemonArray.filter((pokemon) => {
@@ -51,5 +49,5 @@ const filterPokes = (filterType, key) => {
 getTypes();
 getPokemon(pokemonArray);
 
-typesFilter.addEventListener("change", () => filterPokes(typesFilter, `types`));
-nameSearch.addEventListener("change", () => filterPokes(nameSearch, `name`));
+typesFilter.addEventListener("change", () => filterPokes(typesFilter, `types`, `all`));
+nameSearch.addEventListener("change", () => filterPokes(nameSearch, `name`, ""));
