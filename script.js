@@ -1,7 +1,8 @@
 import pokemonArray from "./data/pokemon.js";
 
 const cardContainer = document.querySelector(".card-container");
-const typeFilter = document.querySelector("#type");
+const typesFilter = document.querySelector("#type");
+const nameSearch = document.querySelector("#name-search");
 
 const getPokemon = (array) => {
   array.forEach((pokemon) => {
@@ -30,21 +31,18 @@ const getTypes = () => {
   );
   const pokeTypes = [...new Set(allTypes)].sort();
   pokeTypes.forEach((type) => {
-    typeFilter.innerHTML += `<option value=${type}>${type}</option>`;
+    typesFilter.innerHTML += `<option value=${type}>${type}</option>`;
   });
-
-  console.log(pokeTypes);
 };
 
-const filterPokes = () => {
+const filterPokes = (filterType, key) => {
   cardContainer.innerHTML = "";
 
-  console.log(typeFilter.value);
-  if (typeFilter.value === "all") {
+  if (filterType.value === "") {
     getPokemon(pokemonArray);
   }
   let filterArray = pokemonArray.filter((pokemon) => {
-    return pokemon.types.includes(typeFilter.value);
+    return pokemon[key].includes(filterType.value);
   });
 
   getPokemon(filterArray);
@@ -53,4 +51,5 @@ const filterPokes = () => {
 getTypes();
 getPokemon(pokemonArray);
 
-typeFilter.addEventListener("change", filterPokes);
+typesFilter.addEventListener("change", () => filterPokes(typesFilter, `types`));
+nameSearch.addEventListener("change", () => filterPokes(nameSearch, `name`));
