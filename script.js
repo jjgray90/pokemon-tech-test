@@ -35,12 +35,13 @@ const getTypes = () => {
 
 const filterPokes = (filterType, key, resetValue) => {
   cardContainer.innerHTML = "";
+  const lowerCaseFilterType = filterType.value.toLowerCase();
 
-  if (filterType.value === resetValue) {
+  if (lowerCaseFilterType === resetValue) {
     getPokemon(pokemonArray);
   }
   let filterArray = pokemonArray.filter((pokemon) => {
-    return pokemon[key].includes(filterType.value);
+    return pokemon[key].includes(lowerCaseFilterType);
   });
 
   getPokemon(filterArray);
@@ -49,5 +50,9 @@ const filterPokes = (filterType, key, resetValue) => {
 getTypes();
 getPokemon(pokemonArray);
 
-typesFilter.addEventListener("change", () => filterPokes(typesFilter, `types`, `all`));
-nameSearch.addEventListener("change", () => filterPokes(nameSearch, `name`, ""));
+typesFilter.addEventListener("change", () =>
+  filterPokes(typesFilter, `types`, `all`)
+);
+nameSearch.addEventListener("change", () =>
+  filterPokes(nameSearch, `name`, "")
+);
