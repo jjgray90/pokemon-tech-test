@@ -2,10 +2,11 @@ import pokemonArray from "./data/pokemon.js";
 
 const cardContainer = document.querySelector(".card-container");
 const typeFilter = document.querySelector("#type");
-let capitalizeName = console.log(cardContainer);
 
-const getPokemon = () => {
-  pokemonArray.map((pokemon) => {
+const getPokemon = (array) => {
+  cardContainer.innerHTML = "";
+
+  array.forEach((pokemon) => {
     cardContainer.innerHTML += `
         <div class="card">
             <img src="${pokemon.sprite}">
@@ -37,7 +38,15 @@ const getTypes = () => {
   console.log(pokeTypes);
 };
 
+const filterTypes = () => {
+  let filterArray = pokemonArray.filter((pokemon) => {
+    return pokemon.types.includes(typeFilter.value);
+  });
+
+  getPokemon(filterArray);
+};
+
 getTypes();
+getPokemon(pokemonArray);
 
-
-window.addEventListener("load", getPokemon);
+typeFilter.addEventListener("change", filterTypes);
